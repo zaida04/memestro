@@ -1,0 +1,26 @@
+version: '3.7'
+services:
+    api:
+        build:
+            context: ../../
+            dockerfile: ./docker/api/Dockerfile.local
+        environment:
+            MONGO_URL: mongodb://mongo:27017/dev
+            JWT_KEY: thisisatestkey
+            PORT: 4327
+        ports:
+            - '4327:4327'
+        volumes:
+            - '../../services/api:/usr/app/services/api'
+        networks:
+            - main-network
+    mongo:
+        ports:
+            - '27017:27017'
+        environment:
+            - MONGO_INITDB_DATABASE=dev
+        networks:
+            - main-network
+networks:
+    main-network:
+        driver: bridge

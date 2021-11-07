@@ -1,0 +1,33 @@
+# Packages
+./**/node_modules/
+./**/bin
+
+# Log files
+logs/
+*.log
+npm-debug.log*
+
+.vscode/
+
+Dockerfile
+docker-compose.yml
+.dockerignore
+docker/
+volumes/
+
+*.env
+.env.example
+
+LICENSE
+
+.eslintrc.json
+.eslintignore
+.npmrc
+.prettierrc.json
+knexfile.example.js
+dist/
+
+.github
+.git
+.gitattributes
+.gitignore
