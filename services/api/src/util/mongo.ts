@@ -19,3 +19,8 @@ export const requiredID = {
 	type: Schema.Types.ObjectId,
 	required: true
 } as const;
+
+export const defaultBool = {
+	type: Boolean,
+	default: false
+};

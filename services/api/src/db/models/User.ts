@@ -1,5 +1,5 @@
 import { model, Schema, Document, ObjectId } from 'mongoose';
-import { requiredString, numberEqGZero, requiredID, ROLES } from '../util';
+import { defaultBool, requiredString, numberEqGZero, requiredID, ROLES } from '../../util';
 
 export interface IUser extends Document<any, any, IUser> {
 	oauth: {
@@ -29,6 +29,7 @@ export interface IUser extends Document<any, any, IUser> {
 		posts: ObjectId[];
 		bookmarked: ObjectId[];
 	};
+	deleted: boolean;
 	roles: typeof ROLES[number][];
 }
 
@@ -39,8 +40,14 @@ const userSchema = new Schema(
 			discordID: String
 		},
 		info: {
-			username: requiredString,
-			email: requiredString,
+			username: {
+				...requiredString,
+				unique: true
+			},
+			email: {
+				...requiredString,
+				unique: true
+			},
 			password: String,
 			avatarURL: String
 		},
@@ -76,6 +83,7 @@ const userSchema = new Schema(
 			posts: [requiredID],
 			bookmarked: [requiredID]
 		},
+		deleted: defaultBool,
 		roles: [
 			{
 				type: String,
@@ -86,5 +94,33 @@ const userSchema = new Schema(
 	},
 	{ timestamps: true }
 );
+
+export const baseUserData = {
+	oauth: {
+		googleID: null,
+		discordID: null
+	},
+	info: {
+		avatarURL: null
+	},
+	settings: {
+		theme: 'DEFAULT'
+	},
+	stats: {
+		followers: [],
+		followersCount: 0,
+		following: [],
+		followingCount: 0,
+		commentPoints: 0,
+		postPoints: 0,
+		mainfeedCount: 0
+	},
+	content: {
+		comments: [],
+		posts: [],
+		bookmarked: []
+	},
+	roles: ['MEMBER']
+} as const;
 
 export const userModel = model<IUser>('User', userSchema);

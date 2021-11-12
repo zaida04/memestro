@@ -1,4 +1,5 @@
-import type { IUser } from '../models/User';
+import type { NextFunction, Request, Response } from 'express';
+import type { IUser } from '../db/models/User';
 
 export const ROLES = ['GUEST', 'MEMBER', 'MODERATOR', 'ADMIN', 'NICO'] as const;
 

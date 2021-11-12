@@ -1,21 +1,28 @@
 import { model, Schema, Document, ObjectId } from 'mongoose';
-import { requiredString, numberEqGZero, requiredID } from '../util';
+import { requiredString, numberEqGZero, requiredID, defaultBool } from '../../util';
 
 export interface IPost extends Document<any, any, IPost> {
 	author: ObjectId;
 	shortURL: string;
+	title: string;
 	contentURL: string;
 	upvotes: number;
 	downvotes: number;
+	deleted: boolean;
 }
 
 const postSchema = new Schema(
 	{
 		author: requiredID,
-		shortURL: requiredString,
+		shortURL: {
+			...requiredString,
+			unique: true
+		},
+		title: requiredString,
 		contentURL: requiredString,
 		upvotes: numberEqGZero,
-		downvotes: numberEqGZero
+		downvotes: numberEqGZero,
+		deleted: defaultBool
 	},
 	{ timestamps: true }
 );

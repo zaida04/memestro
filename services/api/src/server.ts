@@ -1,5 +1,5 @@
 import { buildLogger } from './util';
-import { v1Router } from './v1';
+import v1Router from './v1';
 import mongoose from 'mongoose';
 import express from 'express';
 
@@ -20,7 +20,7 @@ export const startApplication = () => {
 	app.get('/', (_, res) =>
 		res.json({
 			message:
-				'Welcome to the Memestro API. \nThis is a private API that is not available to the public. Please do not use this API if you are not authorized'
+				'Welcome to the Memestro API. This is a private API that is not available to the public. Please do not use this API if you are not authorized'
 		})
 	);
 	app.use('/api/v1', v1Router);
