@@ -1,0 +1,21 @@
+{
+    "editor.suggestSelection": "first",
+    "git.autofetch": true,
+    "git.enableSmartCommit": true,
+    "eslint.format.enable": true,
+    "eslint.run": "onSave",
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": true
+      },
+    "eslint.validate": ["javascript", "typescript"],
+    "files.exclude": {
+        "**/.classpath": true,
+        "**/.project": true,
+        "**/.settings": true,
+        "**/.factorypath": true
+    },
+    "eslint.codeAction.showDocumentation": {
+        "enable": true
+    },
+    "editor.formatOnSave": true,
+}
