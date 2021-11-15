@@ -12,8 +12,16 @@ export default {
 		res.locals.fetchComment = comment;
 		return next();
 	},
-	get: (req: CommentRequest, res: CommentResponse, next: NextFunction) => {},
-	post: (req: CommentRequest, res: CommentResponse, next: NextFunction) => {},
-	delete: (req: CommentRequest, res: CommentResponse, next: NextFunction) => {},
-	patch: (req: CommentRequest, res: CommentResponse, next: NextFunction) => {}
+	get: (req: CommentRequest, res: CommentResponse) => {
+		return res.status(501).json({});
+	},
+	post: (req: CommentRequest, res: CommentResponse) => {
+		return res.status(501).json({});
+	},
+	delete: (req: CommentRequest, res: CommentResponse) => {
+		return res.status(501).json({});
+	},
+	patch: (req: CommentRequest, res: CommentResponse) => {
+		return res.status(501).json({});
+	}
 };

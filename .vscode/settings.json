@@ -18,4 +18,5 @@
         "enable": true
     },
     "editor.formatOnSave": true,
+    "files.eol": "\n",
 }

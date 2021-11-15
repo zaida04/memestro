@@ -1,3 +1,4 @@
+import { Multer } from "multer";
 import type { IUser } from "../db/models/User";
 
 declare module "express" {

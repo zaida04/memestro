@@ -2,11 +2,13 @@ import { buildLogger } from './util';
 import v1Router from './v1';
 import mongoose from 'mongoose';
 import express from 'express';
+import multerSingleton from '@util/multer';
 
 export const startApplication = () => {
 	const app = express();
 	const port = process.env.PORT ?? 3005;
 	const logger = buildLogger(`API:${process.pid}`);
+	multerSingleton.createInstance(process.env.CDN_ACCOUNT_ID, process.env.CDN_TOKEN);
 	mongoose
 		.connect(process.env.MONGO_URL, {
 			useCreateIndex: true,

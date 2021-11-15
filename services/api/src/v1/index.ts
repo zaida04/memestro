@@ -5,8 +5,8 @@ import commentsRouter from './routes/comments';
 const v1Router = Router();
 
 v1Router.get('/', (_, res) => res.json({ message: 'Beep boop!' }));
-v1Router.use(usersRouter);
-v1Router.use(postsRouter);
-v1Router.use(commentsRouter);
+v1Router.use('/users', usersRouter);
+v1Router.use('/posts', postsRouter);
+v1Router.use('/comments', commentsRouter);
 
 export default v1Router;

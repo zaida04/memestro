@@ -4,5 +4,7 @@ declare namespace NodeJS {
         PORT: string;
         NODE_ENV?: string;
         JWT_KEY: string;
+        CDN_ACCOUNT_ID: string;
+        CDN_TOKEN: string;
     }
 }

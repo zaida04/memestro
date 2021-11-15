@@ -1,7 +1,7 @@
 import type { NextFunction, Request, Response } from 'express';
 import { IPost, postModel } from '@db/models/Post';
 import { make404Error } from '@util/index';
-import { makeSuccessfulRes } from '@util/http';
+import { makeBadRequestError, makeSuccessfulRes } from '@util/http';
 import { serializePost } from '@db/serializers';
 import { nanoid } from 'nanoid';
 
@@ -19,15 +19,14 @@ export default {
 		return makeSuccessfulRes(res, serializePost(res.locals.fetchPost));
 	},
 	post: async (req: PostRequest, res: PostResponse) => {
-		const { title, content }: { title: string; content: string } = req.body;
+		if (req.file) return makeBadRequestError(res, 'You must provide an image associated with this post.');
+		const { title }: { title: string } = req.body;
 		const shortURL = nanoid(11);
-		const contentURL = 'https://placeholder.com/test';
 		const post = new postModel({
 			author: req.user!.id,
 			shortURL,
 			title,
-			// TODO: upload content to a cdn
-			contentURL,
+			contentURL: req.file,
 			upvotes: 0,
 			downvotes: 0
 		});
