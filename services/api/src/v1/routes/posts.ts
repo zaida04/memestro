@@ -1,17 +1,32 @@
 import { Router } from 'express';
 import postController from '../controllers/post';
-import multer from '@util/multer';
+import { routeValidator, validParam } from '#util/http';
+import multer from 'multer';
+import { CloudflareStorage } from 'multer-cloudflare-storage';
+import { body } from 'express-validator';
 const postsRouter = Router();
+const uploader = multer({
+	storage: new CloudflareStorage(process.env.CDN_ACCOUNT_ID, process.env.CDN_TOKEN)
+});
 
-postsRouter.post('/', postController.post);
+postsRouter.post(
+	/** Create Post */
+	'/',
+	routeValidator(
+		/** Required params */
+		body('title').isLength({ min: 3, max: 50 }),
+		body('category').isString().stripLow()
+	),
+	uploader.single('image'),
+	postController.post
+);
+
 postsRouter
 	.route('/:postID')
 	/* Validate post exists */
-	.all(postController.validator)
+	.all(validParam('postID'), postController.validator)
 	/* Return post */
 	.get(postController.get)
-	/* Create post */
-	.post(multer.getInstance().single('image'), postController.post)
 	/* Edit post */
 	.patch(postController.patch)
 	/* Delete post */

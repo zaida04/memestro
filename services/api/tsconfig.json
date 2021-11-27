@@ -5,8 +5,8 @@
 		"outDir": "./dist",
 		"baseUrl": "./src",
 		"paths": {
-			"@db/*": ["db/*"],
-			"@util/*": ["util/*"]
+			"#db/*": ["db/*"],
+			"#util/*": ["util/*"]
 		},
 		"importsNotUsedAsValues": "remove",
 		"noUnusedLocals": false,

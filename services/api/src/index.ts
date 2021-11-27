@@ -1,6 +1,6 @@
 import cluster from 'node:cluster';
 import { cpus } from 'node:os';
-import { startApplication } from './server';
+import { startApplication } from './start';
 import { checkEnvVariables, attachHelperListenersToCluster, clusterApplication } from './util';
 
 (() => {

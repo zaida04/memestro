@@ -42,5 +42,6 @@ export const serializePost = (post: leanOrNot<IPost>) => ({
 	shortURL: post.shortURL,
 	contentURL: post.contentURL,
 	upvotes: post.upvotes,
-	downvotes: post.downvotes
+	downvotes: post.downvotes,
+	title: post.title
 });

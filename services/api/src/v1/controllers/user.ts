@@ -1,9 +1,9 @@
 import type { NextFunction, Request, Response } from 'express';
-import { baseUserData, IUser, userModel } from '@db/models/User';
-import { make404Error } from '@util/index';
-import { serializeUser } from '@db/serializers';
-import { makeBadRequestError, notNullorUndef, makeSuccessfulRes, makeForbiddenError } from '@util/http';
-import { hasPermission } from '@util/permissions';
+import { baseUserData, IUser, userModel } from '#db/models/User';
+import { make404Error } from '#util/index';
+import { serializeUser } from '#db/serializers';
+import { makeBadRequestError, notNullorUndef, makeSuccessfulRes, makeForbiddenError } from '#util/http';
+import { hasPermission } from '#util/permissions';
 import { createJWT } from '../util/token';
 
 type UserRequest = Request<{ userID: string }>;
@@ -42,10 +42,10 @@ export default {
 	delete: async (req: UserRequest, res: UserResponse) => {
 		const user = res.locals.fetchUser;
 		const executingUser = req.user!;
-
-		if (executingUser._id !== user._id && hasPermission(executingUser, 'MODERATOR'))
+		if (executingUser._id !== user._id || hasPermission(executingUser, 'MODERATOR'))
 			return makeForbiddenError(res, 'You do not have permission to delete this user.');
 		user.deleted ||= true;
+
 		await user.save();
 		return makeSuccessfulRes(res, serializeUser(user.toJSON()));
 	},
@@ -54,6 +54,7 @@ export default {
 		const oldUser = Object.freeze(serializeUser(user.toJSON()));
 		if (notNullorUndef<string>(req.body.username)) user.info.username = req.body.username;
 		if (notNullorUndef<string>(req.body.avatarURL)) user.info.avatarURL = req.body.avatarURL;
+		if (notNullorUndef<string>(req.body.email)) user.info.email = req.body.email;
 
 		await user.save();
 		return makeSuccessfulRes(res, {

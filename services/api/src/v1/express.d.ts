@@ -1,4 +1,4 @@
-import { Multer } from "multer";
+import type { Multer } from "multer";
 import type { IUser } from "../db/models/User";
 
 declare module "express" {
@@ -6,3 +6,9 @@ declare module "express" {
         user?: IUser
     }
 }
+
+// declare module "express-serve-static-core" {
+//     export interface Application {
+//         multer: Multer
+//     }
+// }

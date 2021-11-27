@@ -20,6 +20,8 @@ services:
         depends_on:
             - mongo
             - api_base
+        env_file:
+          - ../../.env
     mongo:
         container_name: MEMESTRO_MONGO_DB
         image: mongo

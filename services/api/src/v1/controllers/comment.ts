@@ -1,6 +1,6 @@
 import type { NextFunction, Request, Response } from 'express';
-import { commentModel, IComment } from '@db/models/Comment';
-import { make404Error } from '@util/index';
+import { commentModel, IComment } from '#db/models/Comment';
+import { make404Error } from '#util/index';
 
 type CommentRequest = Request<{ commentID: string }>;
 type CommentResponse = Response<unknown, { fetchComment: IComment }>;

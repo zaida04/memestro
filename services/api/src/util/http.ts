@@ -1,6 +1,7 @@
 import type { NextFunction, Request, Response } from 'express';
-import { validationResult } from 'express-validator';
-import type { HeadersInit } from 'node-fetch';
+import { ValidationChain, validationResult } from 'express-validator';
+import { isValidObjectId } from 'mongoose';
+import fetch from 'node-fetch';
 
 export enum StatusCodes {
 	ACCEPTED = 202,
@@ -26,30 +27,33 @@ export enum StatusResponses {
 	FORBIDDEN = 'FORBIDDEN'
 }
 
-export const makeError = (res: Response, statusCode: StatusCodes, statusResponse: StatusResponses, errors: string | string[]) =>
+type ErrorPayload = string | string[] | Record<string, any>[];
+
+export const makeError = (res: Response, statusCode: StatusCodes, statusResponse: StatusResponses, errors: ErrorPayload) =>
 	res.status(statusCode).json({
 		code: statusResponse,
 		errors: Array.isArray(errors) ? errors : [{ message: errors }]
 	});
 
-export const makeBadRequestError = (res: Response, errors: string | string[]) =>
+export const makeBadRequestError = (res: Response, errors: ErrorPayload) =>
 	/* Construct 400 errors easy */
 	makeError(res, StatusCodes.BAD_REQUEST, StatusResponses.BAD_REQUEST, errors);
 
-export const make404Error = (res: Response, errors: string | string[]) =>
+export const make404Error = (res: Response, errors: ErrorPayload) =>
 	/* Construct 404 errors easy */
 	makeError(res, StatusCodes.NOT_FOUND, StatusResponses.NOT_FOUND, errors);
 
-export const makeUnauthorizedError = (res: Response, errors: string | string[]) =>
-	/** Construct 403 errors easy */
+export const makeUnauthorizedError = (res: Response, errors: ErrorPayload) =>
+	/** Construct 401 errors easy */
 	makeError(res, StatusCodes.UNAUTHORIZED, StatusResponses.UNAUTHORIZED, errors);
 
-export const makeForbiddenError = (res: Response, errors: string | string[]) =>
+export const makeForbiddenError = (res: Response, errors: ErrorPayload) =>
+	/** Construct 403 errors easy */
 	makeError(res, StatusCodes.FORBIDDEN, StatusResponses.FORBIDDEN, errors);
 
 export const makeSuccessfulRes = (res: Response, payload: Record<string, any>) => res.status(StatusCodes.OK).json(payload);
 
-export default function routeValidator(...validations: any[]) {
+export function routeValidator(...validations: Array<ValidationChain>) {
 	return async (req: Request, res: Response, next: NextFunction) => {
 		// Run all validators on request, so we can get *everything* that's wrong with a request at once instead of one by one
 		await Promise.all(validations.map((validation) => validation.run(req)));
@@ -62,14 +66,7 @@ export default function routeValidator(...validations: any[]) {
 			};
 		});
 		if (errors.isEmpty()) return next();
-
-		// This shitty hack is used to get rid of duplicate errors with a single request property.
-		const errorMap = new Map();
-		for (const error of errors.array()) {
-			errorMap.set(error.param, error);
-		}
-
-		return makeBadRequestError(res, Array.from(errorMap.values()));
+		return makeBadRequestError(res, errors.array());
 	};
 }
 
@@ -90,9 +87,9 @@ export class HTTPError extends Error {
 }
 
 export class RestUtil {
-	public constructor(private apiURL: string) {}
+	public constructor(private apiURL: string, private headers: Record<string, any>) {}
 	public async make<T extends JSONB>(data: MakeOptions): Promise<T> {
-		const headers: HeadersInit = data.headers ?? {};
+		const headers = { ...(data.headers ?? {}), ...this.headers };
 		const requestOptions = {
 			body: data.body ? JSON.stringify(data.body) : undefined,
 			headers: {
@@ -156,3 +153,10 @@ export class RestUtil {
 		});
 	}
 }
+
+export const validParam = (name: string) => {
+	return (req: Request, res: Response, next: NextFunction) => {
+		if (req.params[name] && !isValidObjectId(req.params[name])) return makeBadRequestError(res, `Invalid format for URL param ${name}`);
+		return next();
+	};
+};

@@ -1,12 +1,13 @@
 import { Router } from 'express';
 import commentsController from '../controllers/comment';
+import { validParam } from '#util/http';
 const commentsRouter = Router();
 
 commentsRouter.post('/', commentsController.post);
 commentsRouter
-	.route('/:userID')
+	.route('/:commentID')
 	/* Validate that comment exists */
-	.all(commentsController.validator)
+	.all(validParam('commentID'), commentsController.validator)
 	/* Return comment */
 	.get(commentsController.get)
 	/* Edit comment */
