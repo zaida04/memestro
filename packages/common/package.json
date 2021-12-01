@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Common structures between services",
   "main": "dist/index.js",
-  "types": "types/index.d.ts",
+  "types": "dist/types/index.d.ts",
   "scripts": {
     "build": "tsc",
     "start": "node dist/index.js",

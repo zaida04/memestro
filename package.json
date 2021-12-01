@@ -6,7 +6,8 @@
   "author": "Zaid \"Nico\"",
   "license": "MIT",
   "workspaces": [
-    "services/*"
+    "services/*",
+    "packages/*"
   ],
   "scripts": {
     "build": "yarn workspaces run build",
