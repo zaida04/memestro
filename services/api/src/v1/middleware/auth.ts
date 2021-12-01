@@ -17,12 +17,12 @@ export const buildAuthMiddleware = (JWT_KEY: string) => {
 			}
 
 			const user = await userModel.findById(id);
-			if (!user) {
+			if (!user || user.deleted) {
 				logger.warn(`Rejected request from ${req.ip} because user associated with ID doesn't exist.`);
 				return makeBadRequestError(res, 'User associated with ID in token payload does NOT exist.');
 			}
 
-			logger.info(`Request from ${req.ip} linked to ${user.id}`);
+			logger.info(`Request from ${req.ip} linked to ${user.id} for ${req.method} ${req.url}`);
 			req.user = user;
 		} else if (process.env.NODE_ENV === 'production') {
 			logger.warn(`Rejected request from ${req.ip} for no proper Auth header.`);

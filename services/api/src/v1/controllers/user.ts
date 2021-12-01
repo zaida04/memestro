@@ -13,6 +13,7 @@ export default {
 	validator: async (req: UserRequest, res: Response, next: NextFunction) => {
 		const user = await userModel.findById(req.params.userID);
 		if (!user) return make404Error(res, 'The user with the specified ID does not exist.');
+
 		res.locals.fetchUser = user;
 		return next();
 	},
@@ -35,19 +36,20 @@ export default {
 				avatarURL
 			}
 		});
+
 		await user.save();
 		const token = createJWT(user._id, process.env.JWT_KEY);
-		return makeSuccessfulRes(res, { token });
+		return makeSuccessfulRes(res, { token, id: user._id });
 	},
 	delete: async (req: UserRequest, res: UserResponse) => {
 		const user = res.locals.fetchUser;
 		const executingUser = req.user!;
-		if (executingUser._id !== user._id || hasPermission(executingUser, 'MODERATOR'))
+		if (!executingUser._id.equals(user._id) && !hasPermission(executingUser, 'MODERATOR'))
 			return makeForbiddenError(res, 'You do not have permission to delete this user.');
-		user.deleted ||= true;
 
+		user.deleted ||= true;
 		await user.save();
-		return makeSuccessfulRes(res, serializeUser(user.toJSON()));
+		return makeSuccessfulRes(res, { ...serializeUser(user.toJSON()), deleted: user.deleted });
 	},
 	patch: async (req: UserRequest, res: UserResponse) => {
 		const user = res.locals.fetchUser;

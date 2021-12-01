@@ -9,6 +9,7 @@ export default {
 	validator: async (req: CommentRequest, res: CommentResponse, next: NextFunction) => {
 		const comment = await commentModel.findById(req.params.commentID);
 		if (!comment) return make404Error(res, 'The comment with the specified ID does not exist.');
+
 		res.locals.fetchComment = comment;
 		return next();
 	},

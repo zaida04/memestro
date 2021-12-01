@@ -12,6 +12,7 @@ export default {
 	validator: async (req: PostRequest, res: PostResponse, next: NextFunction) => {
 		const post = await postModel.findOne({ shortURL: req.params.postID });
 		if (!post) return make404Error(res, 'The post with the specified ID does not exist.');
+
 		res.locals.fetchPost = post;
 		return next();
 	},
@@ -30,6 +31,7 @@ export default {
 			upvotes: 0,
 			downvotes: 0
 		});
+
 		await post.save();
 		return makeSuccessfulRes(res, serializePost(post.toJSON()));
 	},
@@ -38,8 +40,8 @@ export default {
 		const executingUser = req.user!;
 		if (executingUser._id !== post.author || hasPermission(executingUser, 'MODERATOR'))
 			return makeForbiddenError(res, 'You do not have permission to delete this post.');
-		post.deleted ||= true;
 
+		post.deleted ||= true;
 		await post.save();
 		return makeSuccessfulRes(res, serializePost(post.toJSON()));
 	},
