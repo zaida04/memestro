@@ -1,1 +1,1 @@
-export * from './models';
+export default 'Hello! This is a placeholder until I create multiple services that required a shared package. This is sort of tech debt atm. However! The symlinks and everything should work, this string should actually be importable from a service.';
