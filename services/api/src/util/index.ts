@@ -4,3 +4,4 @@ export * from './logger';
 export * from './mongo';
 export * from './permissions';
 export * from './http';
+export * from './rest';

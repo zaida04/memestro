@@ -1,6 +1,6 @@
 {
 	"watch": ["src"],
 	"ext": "ts,json",
-	"exec": "tsc && node dist/index.js",
+	"exec": "tsc && node --enable-source-maps dist/index.js",
 	"legacyWatch": true
 }

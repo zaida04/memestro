@@ -23,4 +23,4 @@ export const requiredID = {
 export const defaultBool = {
 	type: Boolean,
 	default: false
-};
+} as const;

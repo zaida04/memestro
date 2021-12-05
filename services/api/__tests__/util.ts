@@ -2,6 +2,7 @@ import fetch, { Response, HeadersInit } from 'node-fetch';
 import { config } from 'dotenv';
 import { join } from 'path';
 import { existsSync } from 'fs';
+import FormData from 'form-data';
 
 export const setupTestEnvironment = () => {
 	const env_path = join(__dirname, '..', 'testing.env');
@@ -25,6 +26,7 @@ export const createUser = (requester: Requester) => {
 interface Req {
 	body?: Record<string, any>;
 	method: string;
+	headers?: Record<string, any>;
 }
 
 export class Requester {
@@ -33,12 +35,13 @@ export class Requester {
 
 	public async make<T = Record<string, any>>(path: string, options: Req): Promise<[Response, T]> {
 		const headers: HeadersInit = {
-			'content-type': 'application/json'
+			'content-type': 'application/json',
+			...options.headers
 		};
 		if (this.user?.token) headers.Authorization = `Bearer ${this.user.token}`;
 		const req = await fetch(`http://${this.HOST}:${this.PORT}/api/v1${path}`, {
 			headers,
-			body: options.body ? JSON.stringify(options.body) : undefined,
+			body: options.body ? (options.body instanceof FormData ? options.body : JSON.stringify(options.body)) : undefined,
 			method: options.method
 		});
 

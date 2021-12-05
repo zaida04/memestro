@@ -6,5 +6,6 @@ declare namespace NodeJS {
         JWT_KEY: string;
         CDN_ACCOUNT_ID: string;
         CDN_TOKEN: string;
+        REPORT_WEBHOOK: string;
     }
 }

@@ -1,4 +1,4 @@
-import type { Multer } from "multer";
+import type { RestUtil } from "#util/rest";
 import type { IUser } from "../db/models/User";
 
 declare module "express" {
@@ -7,8 +7,8 @@ declare module "express" {
     }
 }
 
-// declare module "express-serve-static-core" {
-//     export interface Application {
-//         multer: Multer
-//     }
-// }
+declare module "express-serve-static-core" {
+    export interface Application {
+         reporter: RestUtil
+     }
+ }

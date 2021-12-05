@@ -10,7 +10,8 @@
 		},
 		"importsNotUsedAsValues": "remove",
 		"noUnusedLocals": false,
-		"noUnusedParameters": false
+		"noUnusedParameters": false,
+		"sourceMap": true
 	},
 	"include": ["./src/**/*.ts"]
 }

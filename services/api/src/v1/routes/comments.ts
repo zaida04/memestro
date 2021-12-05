@@ -1,18 +1,33 @@
 import { Router } from 'express';
 import commentsController from '../controllers/comment';
-import { validParam } from '#util/http';
+import { routeValidator, validParam } from '#util/http';
+import { body } from 'express-validator';
+import { requireAuth } from '../middleware/auth';
 const commentsRouter = Router();
 
-commentsRouter.post('/', commentsController.post);
+commentsRouter
+	.route('/')
+	.post(
+		requireAuth,
+		routeValidator(
+			/** Required params */
+			body('content').isLength({ min: 3, max: 50 })
+		),
+		commentsController.post
+	)
+	.get(commentsController.getAll);
+
+/* Validate that comment exists */
+commentsRouter.use('/:commentID', validParam('commentID'), commentsController.validator);
 commentsRouter
 	.route('/:commentID')
-	/* Validate that comment exists */
-	.all(validParam('commentID'), commentsController.validator)
 	/* Return comment */
 	.get(commentsController.get)
 	/* Edit comment */
-	.patch(commentsController.patch)
+	.patch(requireAuth, commentsController.patch)
 	/* Delete comment */
-	.delete(commentsController.delete);
+	.delete(requireAuth, commentsController.delete);
+
+commentsRouter.post('/:commentID/report', routeValidator(body('reason').isString().isLength({ min: 5, max: 250 })), commentsController.report);
 
 export default commentsRouter;

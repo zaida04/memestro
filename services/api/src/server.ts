@@ -1,9 +1,10 @@
-import { buildLogger } from './util';
+import { buildLogger, RestUtil } from './util';
 import v1Router from './v1';
 import mongoose from 'mongoose';
 import express from 'express';
 
 const app = express();
+app.reporter = new RestUtil({ apiURL: process.env.REPORT_WEBHOOK, full: true }, {});
 const logger = buildLogger(`API:${process.pid}`);
 mongoose
 	.connect(process.env.MONGO_URL, {

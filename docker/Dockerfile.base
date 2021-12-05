@@ -7,3 +7,5 @@ RUN apk add --update \
 
 RUN curl -L https://yarnpkg.com/install.sh | bash
 COPY package.json tsconfig.base.json ./
+COPY ./packages/. packages/
+RUN cd packages/common && yarn install

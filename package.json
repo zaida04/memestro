@@ -11,8 +11,9 @@
   ],
   "scripts": {
     "build": "yarn workspaces run build",
-    "lint": "npx eslint services/ packages/",
-    "lint:fix": "npx eslint services/ packages/ --fix",
+    "lint": "npx eslint services/ packages/ scripts/",
+    "lint:fix": "npx eslint services/ packages/ scripts/ --fix",
+    "lint:time": "cross-env TIMING=1 yarn lint",
     "prepare": "husky install",
     "prettier": "prettier --write **/*.{ts,js,json,yml,yaml}",
     "test": "npx mocha"
@@ -27,6 +28,7 @@
     "@typescript-eslint/eslint-plugin": "^4.28.5",
     "@typescript-eslint/parser": "^4.28.5",
     "chai": "^4.3.4",
+    "cross-env": "^7.0.3",
     "dotenv": "^10.0.0",
     "eslint": "^7.6.0",
     "eslint-config-prettier": "^8.3.0",

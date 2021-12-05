@@ -9,6 +9,7 @@ export interface IPost extends Document<any, any, IPost> {
 	upvotes: number;
 	downvotes: number;
 	deleted: boolean;
+	comments: string[];
 }
 
 const postSchema = new Schema(
@@ -22,7 +23,8 @@ const postSchema = new Schema(
 		contentURL: requiredString,
 		upvotes: numberEqGZero,
 		downvotes: numberEqGZero,
-		deleted: defaultBool
+		deleted: defaultBool,
+		comments: [requiredID]
 	},
 	{ timestamps: true }
 );

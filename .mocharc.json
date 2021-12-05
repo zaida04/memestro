@@ -2,5 +2,6 @@
     "$schema": "https://json.schemastore.org/mocharc.json",
     "require": ["./scripts/register-ts.js"],
     "extension": ["ts"],
+    "timeout": 5000,
     "spec": "./services/**/__tests__/**.test.ts"
 }

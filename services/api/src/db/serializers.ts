@@ -17,13 +17,17 @@ import type { IUser } from './models/User';
 type leanOrNot<T> = T | LeanDocument<T>;
 
 export const serializeComment = (comment: leanOrNot<IComment>) => ({
+	_id: comment._id,
 	author: comment.author,
 	content: comment.content,
 	upvotes: comment.upvotes,
-	downvotes: comment.downvotes
+	downvotes: comment.downvotes,
+	post: comment.post,
+	deleted: comment.deleted
 });
 
 export const serializeUser = (user: leanOrNot<IUser>) => ({
+	_id: user._id,
 	info: {
 		username: user.info.username,
 		avatarURL: user.info.avatarURL
@@ -34,14 +38,17 @@ export const serializeUser = (user: leanOrNot<IUser>) => ({
 		commentPoints: user.stats.commentPoints,
 		postPoints: user.stats.postPoints,
 		mainfeedCount: user.stats.mainfeedCount
-	}
+	},
+	roles: user.roles
 });
 
 export const serializePost = (post: leanOrNot<IPost>) => ({
+	_id: post._id,
 	author: post.author,
 	shortURL: post.shortURL,
 	contentURL: post.contentURL,
 	upvotes: post.upvotes,
 	downvotes: post.downvotes,
-	title: post.title
+	title: post.title,
+	deleted: post.deleted
 });
