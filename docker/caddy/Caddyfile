@@ -1,0 +1,4 @@
+:80 {
+    reverse_proxy /api/* http://api:4327
+    reverse_proxy /auth/* http://auth:4328
+}

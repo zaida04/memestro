@@ -168,31 +168,4 @@ describe('Test API', () => {
 			requester.setUser(undefined);
 		});
 	});
-
-	// describe('/posts', () => {
-	// 	it('Create Post', async () => {});
-
-	// 	it('Delete Post', async () => {});
-
-	// 	it('Get Post', async () => {});
-	// });
-
-	// it('Create Post', async () => {
-	// 	expect((await requester('/', { method: 'GET' })[0]).status).to.be.equal(200);
-	// });
-	// it('Delete Post', async () => {
-	// 	expect((await requester('/', { method: 'GET' })[0]).status).to.be.equal(200);
-	// });
-	// it('Get Post', async () => {
-	// 	expect((await requester('/', { method: 'GET' })[0]).status).to.be.equal(200);
-	// });
-	// it('Make Comment', async () => {
-	// 	expect((await requester('/', { method: 'GET' })[0]).status).to.be.equal(200);
-	// });
-	// it('Delete Comment', async () => {
-	// 	expect((await requester('/', { method: 'GET' })[0]).status).to.be.equal(200);
-	// });
-	// it('Edit Comment', async () => {
-	// 	expect((await requester('/', { method: 'GET' })[0]).status).to.be.equal(200);
-	// });
 });

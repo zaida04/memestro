@@ -1,4 +1,0 @@
-FROM memestro/api_base
-WORKDIR /usr/app/services/api
-
-CMD [ "yarn", "run", "dev" ]

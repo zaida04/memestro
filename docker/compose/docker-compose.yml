@@ -6,28 +6,30 @@ services:
         build:
             context: ../../
             dockerfile: ./docker/Dockerfile.base
-    api_base:
-        image: memestro/api_base
-        scale: 0
-        build:
-            context: ../../
-            dockerfile: ./docker/api/Dockerfile.base
-        depends_on:
-            - base
     api:
         container_name: MEMESTRO_API
         restart: unless-stopped
         depends_on:
             - mongo
-            - api_base
         env_file:
           - ../../.env
-    mongo:
-        container_name: MEMESTRO_MONGO_DB
-        image: mongo
-        restart: unless-stopped
-        volumes:
-            - 'memestro-mongo-db-data:/data/db'
+        networks:
+            - main-network
+    reverse_proxy:
+        container_name: MEMESTRO_REVERSE_PROXY
+        image: 'caddy:alpine'
+        ports: 
+            - 80:80
+            - 443:443
+        volumes: 
+            - ../caddy/Caddyfile:/etc/caddy/Caddyfile
+        depends_on:
+          - api
+        networks:
+            - main-network
 
 volumes:
   memestro-mongo-db-data:
+networks:
+    main-network:
+        driver: bridge
