@@ -11,6 +11,7 @@ export enum StatusCodes {
 	NO_CONTENT = 204,
 	NOT_FOUND = 404,
 	OK = 200,
+	INTERNAL_ERROR = 500,
 	REQUEST_TIMEOUT = 408,
 	REQUEST_TOO_LONG = 413,
 	SERVICE_UNAVAILABLE = 503,
@@ -23,7 +24,8 @@ export enum StatusResponses {
 	BAD_REQUEST = 'BAD_REQUEST',
 	NOT_FOUND = 'NOT_FOUND',
 	UNAUTHORIZED = 'UNAUTHORIZED',
-	FORBIDDEN = 'FORBIDDEN'
+	FORBIDDEN = 'FORBIDDEN',
+	INTERNAL_ERROR = 'INTERNAL_ERROR'
 }
 
 type ErrorPayload = string | string[] | Record<string, any>[];
@@ -33,6 +35,10 @@ export const makeError = (res: Response, statusCode: StatusCodes, statusResponse
 		code: statusResponse,
 		errors: Array.isArray(errors) ? errors : [{ message: errors }]
 	});
+
+export const InternalError = (res: Response, errors?: ErrorPayload) =>
+	/* Construct 500 errors */
+	makeError(res, StatusCodes.INTERNAL_ERROR, StatusResponses.INTERNAL_ERROR, errors ?? []);
 
 export const BadRequest = (res: Response, errors: ErrorPayload) =>
 	/* Construct 400 errors easy */

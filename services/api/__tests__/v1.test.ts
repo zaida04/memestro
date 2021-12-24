@@ -1,12 +1,12 @@
 import { expect } from 'chai';
 import * as util from './util';
 import FormData from 'form-data';
-import type { serializeComment, serializePost } from '../src/db/serializers';
+import type { serializeComment, serializePost, serializeUser } from '../src/db/serializers';
 import * as fs from 'fs';
 import { join } from 'path';
 
 util.setupTestEnvironment();
-const requester = new util.Requester('localhost', process.env.TESTING_PORT!);
+const requester = new util.Requester('localhost', process.env.TESTING_PORT ?? 80);
 
 describe('Test API', () => {
 	it('Is server alive', async () => {
@@ -23,7 +23,7 @@ describe('Test API', () => {
 		});
 
 		it('Get User', async () => {
-			const [req, data] = await requester.make(`/users/${requester.user!.id}`, {
+			const [req, data] = await requester.make<ReturnType<typeof serializeUser>>(`/users/${requester.user!.id}`, {
 				method: 'GET'
 			});
 			expect(req.status).to.be.equal(200);
@@ -38,16 +38,18 @@ describe('Test API', () => {
 
 		it('Edit User', async () => {
 			const newUsername = `TESTING_CHANGED_${Math.floor(Math.random() * 1000000 + 1)}`;
-			const [req, data] = await requester.make(`/users/${requester.user!.id}`, {
-				method: 'PATCH',
-				body: {
-					username: newUsername
+			const [req, data] = await requester.make<{ oldUser: ReturnType<typeof serializeUser>; newUser: ReturnType<typeof serializeUser> }>(
+				`/users/${requester.user!.id}`,
+				{
+					method: 'PATCH',
+					body: {
+						username: newUsername
+					}
 				}
-			});
+			);
 			expect(req.status).to.be.equal(200);
 			expect(data.newUser.info.username).to.be.equal(newUsername);
 			expect(data.oldUser.info.username).to.not.equal(data.newUser.info.username);
-			expect(data.oldUser.info.email).to.equal(data.newUser.info.email);
 		});
 
 		it("Delete User That Isn't Them", async () => {
@@ -151,7 +153,7 @@ describe('Test API', () => {
 		});
 
 		it('Delete Post', async () => {
-			const [req, data] = await requester.make(`/posts/${post.shortURL}`, {
+			const [req, data] = await requester.make<ReturnType<typeof serializePost>>(`/posts/${post.shortURL}`, {
 				method: 'DELETE'
 			});
 

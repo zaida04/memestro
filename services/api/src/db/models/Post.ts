@@ -29,4 +29,11 @@ const postSchema = new Schema(
 	{ timestamps: true }
 );
 
+export const basePostData = {
+	upvotes: 0,
+	downvotes: 0,
+	deleted: false,
+	comments: []
+};
+
 export const postModel = model<IPost>('Post', postSchema);

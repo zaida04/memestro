@@ -1,7 +1,6 @@
 import { sign, verify } from 'jsonwebtoken';
 import { isValidObjectId } from 'mongoose';
 
-// create a JWT created from a string formatted like id::timeitwascreated
 export function createJWT(id: string, JWT_KEY: string): string {
 	return sign(
 		{

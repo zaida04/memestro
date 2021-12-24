@@ -1,0 +1,14 @@
+{
+  "name": "@memestro/auth",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Auth provider for memestro",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "nodemon"
+  },
+  "author": "Nico",
+  "license": "UNLICENSED"
+}

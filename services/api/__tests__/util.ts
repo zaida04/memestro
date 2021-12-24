@@ -8,7 +8,6 @@ export const setupTestEnvironment = () => {
 	const env_path = join(__dirname, '..', 'testing.env');
 	if (!existsSync(env_path)) throw new Error('Missing a testing env file in the api service folder!');
 	config({ path: env_path });
-	if (!process.env.TESTING_PORT) throw new Error('Missing TESTING_PORT!');
 };
 
 export const createUser = (requester: Requester) => {

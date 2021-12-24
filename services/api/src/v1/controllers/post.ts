@@ -1,5 +1,5 @@
 import type { NextFunction, Request, Response } from 'express';
-import { IPost, postModel } from '#db/models/Post';
+import { IPost, postModel, basePostData } from '#db/models/Post';
 import { hasPermission } from '#util/permissions';
 import { BadRequest, Forbidden, Ok, NotFound } from '#util/http';
 import { serializePost } from '#db/serializers';
@@ -24,12 +24,11 @@ export default {
 		const { title, category }: { title: string; category: string } = req.body;
 		const shortURL = nanoid(11);
 		const post = new postModel({
+			...basePostData,
 			author: req.user!.id,
 			shortURL,
 			title,
-			contentURL: req.file.path,
-			upvotes: 0,
-			downvotes: 0
+			contentURL: req.file.path
 		});
 
 		await post.save();
