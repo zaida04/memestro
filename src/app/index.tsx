@@ -1,7 +1,7 @@
 import { Link, Stack } from "expo-router";
+import { Tabs } from "expo-router/tabs";
 import { Text, TouchableOpacity, View } from "react-native";
 import Details from "./details";
-import { Tabs } from 'expo-router/tabs';
 
 export default function Page() {
 	return (
