@@ -1,26 +1,22 @@
 import { Link, Stack } from "expo-router";
-import { Tabs } from "expo-router/tabs";
 import { Text, TouchableOpacity, View } from "react-native";
-import Details from "./details";
 
 export default function Page() {
 	return (
-		<>
-			<View className={styles.container}>
-				<Stack.Screen options={{ title: "All Pics" }} />
-				<View className={styles.main}>
-					<View>
-						<Text className={styles.title}>Hello World</Text>
-						<Text className={styles.subtitle}>This is the first page of your app.</Text>
-					</View>
-					<Link href={{ pathname: "/details", params: { name: "Dan" } }} asChild>
-						<TouchableOpacity className={styles.button}>
-							<Text className={styles.buttonText}>Show Details</Text>
-						</TouchableOpacity>
-					</Link>
+		<View className={styles.container}>
+			<Stack.Screen options={{ title: "All Pics" }} />
+			<View className={styles.main}>
+				<View>
+					<Text className={styles.title}>Hello World</Text>
+					<Text className={styles.subtitle}>This is the first page of your app.</Text>
 				</View>
+				<Link href={{ pathname: "/details", params: { name: "Dan" } }} asChild>
+					<TouchableOpacity className={styles.button}>
+						<Text className={styles.buttonText}>Show Details</Text>
+					</TouchableOpacity>
+				</Link>
 			</View>
-		</>
+		</View>
 	);
 }
 
