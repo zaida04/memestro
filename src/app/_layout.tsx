@@ -2,9 +2,22 @@ import { Feather } from "@expo/vector-icons";
 import { Tabs } from "expo-router/tabs";
 import React from "react";
 
+const hiddenTabBarRoutes = ["details"];
+const noop = () => null;
+
+function hideTab(options: any) {
+	return {
+		tabBarButton: hiddenTabBarRoutes.includes(options.route.name)
+			? noop
+			: undefined,
+	};
+}
+
 export default function Layout() {
 	return (
-		<Tabs initialRouteName="index">
+		<Tabs
+			screenOptions={hideTab}
+			initialRouteName="index">
 			<Tabs.Screen
 				name="index"
 				options={{
