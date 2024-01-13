@@ -28,22 +28,18 @@ const tabs = [
 		label: "Settings",
 		icon: "settings",
 	},
-]
+];
 const noop = () => null;
 
 function hideTab(options: any) {
 	return {
-		tabBarButton: !tabs.some(x => x.name === options.route.name)
-			? noop
-			: undefined,
+		tabBarButton: !tabs.some((x) => x.name === options.route.name) ? noop : undefined,
 	};
 }
 
 export default function Layout() {
 	return (
-		<Tabs
-			screenOptions={hideTab}
-			initialRouteName="index">
+		<Tabs screenOptions={hideTab} initialRouteName="index">
 			{tabs.map((tab) => (
 				<Tabs.Screen
 					key={tab.name}
