@@ -7,17 +7,13 @@ const noop = () => null;
 
 function hideTab(options: any) {
 	return {
-		tabBarButton: hiddenTabBarRoutes.includes(options.route.name)
-			? noop
-			: undefined,
+		tabBarButton: hiddenTabBarRoutes.includes(options.route.name) ? noop : undefined,
 	};
 }
 
 export default function Layout() {
 	return (
-		<Tabs
-			screenOptions={hideTab}
-			initialRouteName="index">
+		<Tabs screenOptions={hideTab} initialRouteName="index">
 			<Tabs.Screen
 				name="index"
 				options={{
