@@ -1,0 +1,89 @@
+name: CI workflow
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  # This is going to be used when we have a lot more packages and need to cache them.
+  # For now, it's commented out
+
+  # cache-packages:
+  #   name: install dependencies (ignore)
+  #   runs-on: ubuntu-latest
+
+  #   steps:
+  #     - uses: actions/checkout@v3
+  #     - uses: oven-sh/setup-bun@v1
+
+  #     - name: Set Bun to cache
+  #       uses: actions/cache@v2
+  #       with:
+  #         path: ~/.bun
+  #         key: ${{ runner.os }}-bun-${{ hashFiles('**/bun.lockb') }}
+
+  #     - name: Install dependencies
+  #       run: bun install
+
+  check:
+    name: lint & format
+    # needs: cache-packages
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+          # commits using the default github action token don't trigger CI as a failsafe for inf loops
+          # the checkout action will persist using this PAT
+          token: ${{ secrets.CI_PAT }}
+
+      - uses: oven-sh/setup-bun@v1
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      # - name: Use Cached Bun modules
+      #   uses: actions/cache@v2
+      #   with:
+      #     path: ~/.bun
+      #     key: ${{ runner.os }}-bun-${{ hashFiles('**/bun.lockb') }}
+
+      - name: Install dependencies
+        run: bun install
+
+      - name: Run lint/format & apply if fixable
+        run: bun run check:fix
+
+      - name: Add and commit changes
+        uses: EndBug/add-and-commit@v9
+        with:
+          add: '.'
+          default_author: github_actions
+          message: 'chore: auto-format code'
+
+  typecheck:
+    name: typecheck code
+    # needs: cache-packages
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: oven-sh/setup-bun@v1
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          
+      # - name: Use Cached Bun modules
+      #   uses: actions/cache@v2
+      #   with:
+      #     path: ~/.bun
+      #     key: ${{ runner.os }}-bun-${{ hashFiles('**/bun.lockb') }}
+
+      - name: Install dependencies
+        run: bun install
+
+      - name: Run typecheck
+        run: bun run typecheck
