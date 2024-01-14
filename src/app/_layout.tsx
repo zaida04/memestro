@@ -29,10 +29,12 @@ const tabs = [
 		icon: "settings",
 	},
 ];
+const showTabOnPage = ["index", "profile", "search", "settings"];
 const noop = () => null;
 
-function hideTab(options: any) {
+function hideTab(options: { route: { name: string } }) {
 	return {
+		headerShown: showTabOnPage.includes(options.route.name),
 		tabBarButton: !tabs.some((x) => x.name === options.route.name) ? noop : undefined,
 	};
 }
