@@ -2,6 +2,8 @@ import { Feather } from "@expo/vector-icons";
 import { FontAwesome } from '@expo/vector-icons';
 import { Link } from "expo-router";
 import { Image, Text, View } from "react-native";
+import UpvoteCount from "./UpvoteCount";
+import CommentCount from "./CommentCount";
 
 interface PostOptions {
     title: string;
@@ -31,18 +33,8 @@ export default function Post(props: PostOptions) {
                 </View>
             </View>
             <View className="flex flex-col gap">
-                <View className="flex flex-row gap-2 items-center">
-                    <Text>
-                        {props.upvotes}
-                    </Text>
-                    <Feather name="arrow-up" size={25} />
-                </View>
-                <View className="flex flex-row gap-2 items-center">
-                    <Text>
-                        {props.comments}
-                    </Text>
-                    <FontAwesome name="comments" size={25} />
-                </View>
+                <UpvoteCount extendClassName="test gap-1" upvotes={props.upvotes} />
+                <CommentCount comments={props.comments} />
             </View>
         </View>
     </Link>

@@ -1,6 +1,6 @@
 import { Stack } from "expo-router";
 import { ScrollView, View } from "react-native";
-import Post from "~/components/Post";
+import Post from "~/components/post/Post";
 
 export default function Page() {
 	return (

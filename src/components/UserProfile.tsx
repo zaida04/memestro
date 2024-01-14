@@ -1,5 +1,5 @@
 import { Image, ScrollView, Text, View } from "react-native";
-import Post from "~/components/Post";
+import Post from "~/components/post/Post";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '~/components/Tab';
 
 interface UserProfileProps {
