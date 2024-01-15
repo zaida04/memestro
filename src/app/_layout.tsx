@@ -32,16 +32,16 @@ const tabs = [
 const showTabOnPage = ["index", "profile", "search", "settings"];
 const noop = () => null;
 
-function hideTab(options: { route: { name: string } }) {
-	return {
-		headerShown: showTabOnPage.includes(options.route.name),
-		tabBarButton: !tabs.some((x) => x.name === options.route.name) ? noop : undefined,
-	};
-}
-
 export default function Layout() {
 	return (
-		<Tabs screenOptions={hideTab} initialRouteName="index">
+		<Tabs screenOptions={(options) => ({
+			// headerShown: showTabOnPage.includes(options.route.name),
+			headerShown: true,
+			tabBarStyle: {
+				display: showTabOnPage.includes(options.route.name) ? "flex" : "none",
+			},
+			tabBarButton: !tabs.some((x) => x.name === options.route.name) ? noop : undefined,
+		})} initialRouteName="index">
 			{tabs.map((tab) => (
 				<Tabs.Screen
 					key={tab.name}
