@@ -1,6 +1,6 @@
 import { relations } from "drizzle-orm";
 import { boolean, pgTable, text, timestamp, varchar } from "drizzle-orm/pg-core";
-import { createInsertSchema, createSelectSchema } from "drizzle-zod";
+import { createInsertSchema, createSelectSchema } from "drizzle-typebox";
 
 const id = varchar("id", { length: 30 }).notNull().primaryKey();
 const other_id = (column_name: string) => varchar(column_name, { length: 30 }).notNull();
