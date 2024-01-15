@@ -1,0 +1,15 @@
+{
+  "name": "@memestro/api",
+  "version": "0.0.1",
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "dev": "bun run --watch src/index.ts"
+  },
+  "dependencies": {
+    "elysia": "latest"
+  },
+  "devDependencies": {
+    "bun-types": "latest",
+    "typescript": "^5.1.3"
+  }
+}
