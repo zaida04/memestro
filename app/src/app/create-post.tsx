@@ -1,7 +1,7 @@
 import { Button, Input } from "@rneui/themed";
+import * as ImagePicker from "expo-image-picker";
 import { Stack } from "expo-router";
-import { View, Text } from "react-native";
-import * as ImagePicker from 'expo-image-picker';
+import { Text, View } from "react-native";
 
 export default function CreatePostPage() {
 	const pickImage = async () => {

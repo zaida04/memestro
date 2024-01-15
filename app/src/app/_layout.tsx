@@ -34,14 +34,17 @@ const noop = () => null;
 
 export default function Layout() {
 	return (
-		<Tabs screenOptions={(options) => ({
-			// headerShown: showTabOnPage.includes(options.route.name),
-			headerShown: true,
-			tabBarStyle: {
-				display: showTabOnPage.includes(options.route.name) ? "flex" : "none",
-			},
-			tabBarButton: !tabs.some((x) => x.name === options.route.name) ? noop : undefined,
-		})} initialRouteName="index">
+		<Tabs
+			screenOptions={(options) => ({
+				// headerShown: showTabOnPage.includes(options.route.name),
+				headerShown: true,
+				tabBarStyle: {
+					display: showTabOnPage.includes(options.route.name) ? "flex" : "none",
+				},
+				tabBarButton: !tabs.some((x) => x.name === options.route.name) ? noop : undefined,
+			})}
+			initialRouteName="index"
+		>
 			{tabs.map((tab) => (
 				<Tabs.Screen
 					key={tab.name}

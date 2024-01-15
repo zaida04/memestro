@@ -3,6 +3,9 @@
 	"organizeImports": {
 		"enabled": true
 	},
+	"files": {
+		"ignore": ["**/.expo", "**/node_modules", "**/*.d.ts"]
+	},
 	"formatter": {
 		"enabled": true,
 		"indentStyle": "tab",
@@ -13,7 +16,8 @@
 		"rules": {
 			"recommended": true,
 			"suspicious": {
-				"noExplicitAny": "warn"
+				"noExplicitAny": "warn",
+				"noArrayIndexKey": "warn"
 			},
 			"style": {
 				"noNonNullAssertion": "off"

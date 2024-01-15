@@ -1,75 +1,66 @@
-import React, { ReactNode, createContext, useContext, useState } from 'react';
-import { Text, TouchableOpacity, View } from 'react-native';
+import React, { ReactNode, createContext, useContext, useState } from "react";
+import { Text, TouchableOpacity, View } from "react-native";
 
 interface TabsContextProps {
-    activeTab: string;
-    setActiveTab: (id: string) => void;
+	activeTab: string;
+	setActiveTab: (id: string) => void;
 }
 const TabsContext = createContext<TabsContextProps>({
-    activeTab: '',
-    setActiveTab: () => { },
+	activeTab: "",
+	setActiveTab: () => {},
 });
 
 interface TabsProps {
-    defaultValue: string;
-    children: ReactNode;
+	defaultValue: string;
+	children: ReactNode;
 }
 export function Tabs({ defaultValue, children }: TabsProps) {
-    const [activeTab, setActiveTab] = useState(defaultValue);
+	const [activeTab, setActiveTab] = useState(defaultValue);
 
-    return (
-        <View className="px-2 py-2">
-            <TabsContext.Provider value={{ activeTab, setActiveTab }}>
-                {children}
-            </TabsContext.Provider>
-        </View>
-    );
+	return (
+		<View className="px-2 py-2">
+			<TabsContext.Provider value={{ activeTab, setActiveTab }}>{children}</TabsContext.Provider>
+		</View>
+	);
 }
 
 export function TabsList({ children }: { children: ReactNode }) {
-    return <View className="flex flex-row justify-center">{children}</View>;
+	return <View className="flex flex-row justify-center">{children}</View>;
 }
 
 interface TabsTriggerProps {
-    id: string;
-    title: string;
+	id: string;
+	title: string;
 }
 export function TabsTrigger({ id, title }: TabsTriggerProps) {
-    const { activeTab, setActiveTab } = useContext(TabsContext);
+	const { activeTab, setActiveTab } = useContext(TabsContext);
 
-    return (
-        <TouchableOpacity
-            className={`px-8 py-3 rounded-md w-1/2 mr-1 ${activeTab === id
-                ? 'bg-black dark:bg-white'
-                : 'bg-gray-200 dark:bg-gray-800'
-                }`}
-            onPress={() => setActiveTab(id)}
-        >
-            <Text
-                className={`font-bold text-center ${activeTab === id
-                    ? 'text-white dark:text-black'
-                    : 'text-gray-400 dark:text-gray-300'
-                    }`}
-            >
-                {title}
-            </Text>
-        </TouchableOpacity>
-    );
+	return (
+		<TouchableOpacity
+			className={`px-8 py-3 rounded-md w-1/2 mr-1 ${
+				activeTab === id ? "bg-black dark:bg-white" : "bg-gray-200 dark:bg-gray-800"
+			}`}
+			onPress={() => setActiveTab(id)}
+		>
+			<Text
+				className={`font-bold text-center ${
+					activeTab === id ? "text-white dark:text-black" : "text-gray-400 dark:text-gray-300"
+				}`}
+			>
+				{title}
+			</Text>
+		</TouchableOpacity>
+	);
 }
 
 interface TabsContentProps {
-    value: string;
-    children: ReactNode;
+	value: string;
+	children: ReactNode;
 }
 export function TabsContent({ value, children }: TabsContentProps) {
-    const { activeTab } = useContext(TabsContext);
+	const { activeTab } = useContext(TabsContext);
 
-    if (value === activeTab)
-        return (
-            <View className="mt-2 rounded-xl">
-                {children}
-            </View>
-        );
+	if (value === activeTab) return <View className="mt-2 rounded-xl">{children}</View>;
 
-    return null;
+	return null;
 }
