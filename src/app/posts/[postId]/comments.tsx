@@ -1,6 +1,6 @@
 import { ScrollView, View } from "react-native";
 import Topbar from "~/components/post/Topbar";
-import Comment from "~/components/comment/Comment";
+import Comment from "~/components/post/Comment";
 
 function generateRandomContent() {
     const filler_words = [

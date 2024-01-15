@@ -7,7 +7,7 @@ interface CommentOptionsProps {
     content: string;
 }
 export default function Comment(props: CommentOptionsProps) {
-    return <View className="flex flex-row p-4 border-y-[1px] border-gray-400">
+    return <View className="flex flex-row px-4 py-3 border-y-[1px] border-gray-400">
         <Image
             className="rounded-full"
             style={{
@@ -21,7 +21,7 @@ export default function Comment(props: CommentOptionsProps) {
             <Text className="w-[265px] text-xs">{props.content}</Text>
         </View>
 
-        <View className="flex flex-col items-center gap-1 pt-2">
+        <View className="flex flex-col items-center gap-1">
             <Feather name="arrow-up" size={24} />
             <Text className="text-xs">{props.upvotes - props.downvotes}</Text>
             <Feather name="arrow-down" size={24} />
