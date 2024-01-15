@@ -7,7 +7,7 @@ export default function Page() {
 		<View>
 			<Stack.Screen options={{ title: "All Pics" }} />
 
-			<ScrollView className="flex flex-col overflow-y-scroll">
+			<ScrollView>
 				{Array(10).fill(0).map((_, index) => (
 					<Post
 						key={index}
