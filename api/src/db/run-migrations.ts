@@ -1,6 +1,6 @@
 import { migrate } from "drizzle-orm/postgres-js/migrator";
-import { drizzle_client, sql_connection } from "./client";
 import { logger } from "../logger";
+import { drizzle_client, sql_connection } from "./client";
 
 async function main() {
 	logger.warn("Running migrations...");
