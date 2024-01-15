@@ -13,7 +13,7 @@ interface PostOptions {
     comments: number;
 }
 export default function Post(props: PostOptions) {
-    return <Link href="/posts/blah" className="w-full active:bg-gray-200">
+    return <Link href="/posts/blah/" className="w-full active:bg-gray-200">
         <View className="w-full flex flex-row justify-between border border-gray-300 p-2">
             <View className="flex flex-row gap-2">
                 <Image

@@ -1,9 +1,10 @@
 import { Feather } from "@expo/vector-icons";
-import { useLocalSearchParams, useRouter } from "expo-router";
+import { Link, useLocalSearchParams, useRouter } from "expo-router";
 import { Image, Text, View } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import CommentCount from "~/components/post/CommentCount";
 import ShareButton from "~/components/post/ShareButton";
+import Topbar from "~/components/post/Topbar";
 import UpvoteCount from "~/components/post/UpvoteCount";
 
 export default function PostPage() {
@@ -12,15 +13,7 @@ export default function PostPage() {
 
     return <View className="w-screen h-screen">
         <View className="flex flex-col justify-between h-[91vh]">
-            <View className="pt-14 pb-6 px-4 bg-black">
-                <TouchableOpacity onPress={() => router.back()}>
-                    <View className="flex flex-row gap-2 items-center" >
-                        <Feather name="arrow-left" size={24} color="white" />
-                        <Text className="text-white">Back</Text>
-                    </View>
-                </TouchableOpacity>
-            </View>
-
+            <Topbar />
             <View>
                 <Image
                     style={{
@@ -35,7 +28,9 @@ export default function PostPage() {
             <View className="w-full flex flex-row justify-center items-center bg-black py-6">
                 <View className="flex flex-row">
                     <UpvoteCount darkMode={true} extendClassName="mr-12" upvotes={10} />
-                    <CommentCount darkMode={true} extendClassName="mr-14" comments={5} />
+                    <TouchableOpacity onPress={() => router.push("/posts/blah/comments")}>
+                        <CommentCount darkMode={true} extendClassName="mr-14" comments={5} />
+                    </TouchableOpacity>
                     <ShareButton darkMode={true} />
                 </View>
             </View>
