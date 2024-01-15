@@ -2,11 +2,13 @@ import { Feather } from "@expo/vector-icons";
 import { Stack, useRouter } from "expo-router";
 import { View, TouchableOpacity, Text } from "react-native";
 
-export default function Topbar(props: { title?: string }) {
+export default function Topbar(props: { backDestination?: string; title?: string }) {
     const router = useRouter();
 
     const BackButton = () => (
-        <TouchableOpacity onPress={router.back}>
+        <TouchableOpacity onPress={props.backDestination ? () => {
+            router.replace(props.backDestination! as any);
+        } : router.back}>
             <View className="flex flex-row gap-2 items-center pl-4">
                 <Feather name="arrow-left" color="white" size={24} />
                 <Text className="text-white">Back</Text>

@@ -18,7 +18,7 @@ function generateRandomContent() {
 
 export default function PostCommentPage() {
     return <View>
-        <Topbar />
+        <Topbar backDestination="/posts/test/" />
 
         <ScrollView>
             {Array(10).fill(0).map((_, index) => (
