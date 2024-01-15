@@ -7,6 +7,6 @@ export default function CommentCount(props: { extendClassName?: string; darkMode
         <Text className={props.darkMode ? "text-white" : ""}>
             {props.comments}
         </Text>
-        <FontAwesome name="comments" color={props.darkMode ? "white" : ""} size={25} />
+        <FontAwesome name="comments" color={props.darkMode ? "white" : "black"} size={25} />
     </View>
 }

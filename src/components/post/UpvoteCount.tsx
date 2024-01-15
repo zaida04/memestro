@@ -7,6 +7,6 @@ export default function UpvoteCount(props: { extendClassName?: string; darkMode?
         <Text className={props.darkMode ? "text-white" : ""}>
             {props.upvotes}
         </Text>
-        <Feather name="arrow-up" color={props.darkMode ? "white" : ""} size={25} />
+        <Feather name="arrow-up" color={props.darkMode ? "white" : "black"} size={25} />
     </View>
 }

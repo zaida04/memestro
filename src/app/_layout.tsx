@@ -29,7 +29,7 @@ const tabs = [
 		icon: "settings",
 	},
 ];
-const showTabOnPage = ["index", "profile", "search", "settings"];
+const showTabOnPage = ["index", "create-post", "profile", "search", "settings"];
 const noop = () => null;
 
 export default function Layout() {
