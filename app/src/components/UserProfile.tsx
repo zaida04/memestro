@@ -1,6 +1,7 @@
 import { Image, ScrollView, Text, View } from "react-native";
 import Post from "~/components/post/Post";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '~/components/Tab';
+import Comment from "./post/Comment";
 
 interface UserProfileProps {
     profilePicture: string;
@@ -45,9 +46,16 @@ export default function UserProfile(props: UserProfileProps) {
                 </ScrollView>
             </TabsContent>
             <TabsContent value="comments">
-                <Text className="text-black dark:text-white">
-                    Your comments
-                </Text>
+                <ScrollView>
+                    {Array(10).fill(0).map((_, index) => (
+                        <Comment
+                            key={index}
+                            content="This is a comment"
+                            upvotes={Math.floor(Math.random() * 10)}
+                            downvotes={Math.floor(Math.random() * 10)}
+                        />
+                    ))}
+                </ScrollView>
             </TabsContent>
         </Tabs>
     </View>

@@ -83,7 +83,7 @@ jobs:
       #     key: ${{ runner.os }}-bun-${{ hashFiles('**/bun.lockb') }}
 
       - name: Install dependencies
-        run: bun install
+        run: ./workspace.sh "bun install"
 
       - name: Run typecheck
-        run: bun run typecheck
+        run: ./workspace.sh "bun run typecheck"

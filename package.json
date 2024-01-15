@@ -1,60 +1,11 @@
 {
-  "name": "memestro",
-  "version": "1.0.0",
-  "main": "./src/index.ts",
+  "name": "@memestro/root",
   "scripts": {
-    "android": "expo start --android",
-    "ios": "expo start --ios",
-    "start:local": "expo start",
-    "start": "expo start --tunnel",
-    "web": "expo start --web",
-    "typecheck": "tsc --noEmit",
     "check": "biome check .",
     "check:fix": "biome check --apply-unsafe ."
   },
-  "dependencies": {
-    "@expo/vector-icons": "^13.0.0",
-    "@react-navigation/native": "^6.1.7",
-    "@rneui/base": "edge",
-    "@rneui/themed": "edge",
-    "clsx": "^2.1.0",
-    "expo": "~49.0.11",
-    "expo-image-picker": "^14.5.0",
-    "expo-linking": "~5.0.2",
-    "expo-router": "^2.0.0",
-    "expo-status-bar": "~1.6.0",
-    "expo-system-ui": "~2.4.0",
-    "expo-web-browser": "~12.3.2",
-    "nativewind": "^2.0.11",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "react-native": "0.72.6",
-    "react-native-gesture-handler": "~2.12.0",
-    "react-native-safe-area-context": "^4.6.3",
-    "react-native-screens": "~3.22.0",
-    "react-native-web": "~0.19.6",
-    "tailwind-merge": "^2.2.0"
-  },
   "devDependencies": {
-    "@babel/core": "^7.20.0",
-    "@biomejs/biome": "1.5.1",
-    "@expo/ngrok": "^4.1.0",
-    "@types/react": "~18.2.14",
-    "tailwindcss": "3.3.2",
-    "typescript": "^5.1.3"
-  },
-  "resolutions": {
-    "react-refresh": "~0.14.0"
-  },
-  "overrides": {
-    "react-refresh": "~0.14.0"
-  },
-  "expo": {
-    "install": {
-      "exclude": [
-        "react-native-safe-area-context"
-      ]
-    }
+    "@biomejs/biome": "1.5.1"
   },
   "private": true
 }
