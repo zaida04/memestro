@@ -3,14 +3,22 @@
   "version": "0.0.1",
   "scripts": {
     "typecheck": "tsc --noEmit",
-    "dev": "bun run --watch src/index.ts | pino-pretty"
+    "dev": "bun run --watch src/index.ts | pino-pretty",
+    "m:g": "drizzle-kit generate:pg --schema=./src/db/schema.ts",
+    "m:r": "bun src/db/run-migrations.ts",
+    "db:up": "docker run -d --name memestro-db -p 5432:5432 -e POSTGRES_PASSWORD=password postgres"
   },
   "dependencies": {
+    "drizzle-orm": "0.28.5",
+    "drizzle-zod": "^0.5.1",
     "elysia": "latest",
-    "pino": "^8.17.2"
+    "nanoid": "^5.0.4",
+    "pino": "^8.17.2",
+    "postgres": "^3.4.3"
   },
   "devDependencies": {
     "bun-types": "latest",
+    "drizzle-kit": "0.19.13",
     "pino-pretty": "^10.3.1",
     "typescript": "^5.1.3"
   }

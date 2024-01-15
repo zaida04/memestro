@@ -1,10 +1,10 @@
 import { Elysia } from "elysia";
 import { logger } from "./logger";
+import homeRouter from "./routes/home";
 
 const app = new Elysia();
+app.use(homeRouter);
 
-app.get("/", () => "Hello Elysia");
-
-app.listen(3000, () => {
-	logger.info(`🦊 Elysia is running at ${app.server?.hostname}:${app.server?.port}`);
+app.listen(5000, () => {
+	logger.info(`🦊 Elysia is running at http://${app.server?.hostname}:${app.server?.port}`);
 });
