@@ -3,13 +3,15 @@
   "version": "0.0.1",
   "scripts": {
     "typecheck": "tsc --noEmit",
-    "dev": "bun run --watch src/index.ts"
+    "dev": "bun run --watch src/index.ts | pino-pretty"
   },
   "dependencies": {
-    "elysia": "latest"
+    "elysia": "latest",
+    "pino": "^8.17.2"
   },
   "devDependencies": {
     "bun-types": "latest",
+    "pino-pretty": "^10.3.1",
     "typescript": "^5.1.3"
   }
 }

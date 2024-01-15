@@ -1,5 +1,10 @@
 import { Elysia } from "elysia";
+import { logger } from "./logger";
 
-const app = new Elysia().get("/", () => "Hello Elysia").listen(3000);
+const app = new Elysia();
 
-console.log(`🦊 Elysia is running at ${app.server?.hostname}:${app.server?.port}`);
+app.get("/", () => "Hello Elysia");
+
+app.listen(3000, () => {
+	logger.info(`🦊 Elysia is running at ${app.server?.hostname}:${app.server?.port}`);
+});
