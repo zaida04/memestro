@@ -1,5 +1,5 @@
 {
-  "name": "memestro",
+  "name": "@memestro/app",
   "version": "1.0.0",
   "main": "./src/index.ts",
   "scripts": {
@@ -8,9 +8,7 @@
     "start:local": "expo start",
     "start": "expo start --tunnel",
     "web": "expo start --web",
-    "typecheck": "tsc --noEmit",
-    "check": "biome check .",
-    "check:fix": "biome check --apply-unsafe ."
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@expo/vector-icons": "^13.0.0",

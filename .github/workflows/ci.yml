@@ -42,9 +42,6 @@ jobs:
           token: ${{ secrets.CI_PAT }}
 
       - uses: oven-sh/setup-bun@v1
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
 
       # - name: Use Cached Bun modules
       #   uses: actions/cache@v2
@@ -69,12 +66,12 @@ jobs:
     name: typecheck code
     # needs: cache-packages
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        dir: ["app", "api"]
     steps:
       - uses: actions/checkout@v3
       - uses: oven-sh/setup-bun@v1
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
           
       # - name: Use Cached Bun modules
       #   uses: actions/cache@v2
@@ -83,7 +80,7 @@ jobs:
       #     key: ${{ runner.os }}-bun-${{ hashFiles('**/bun.lockb') }}
 
       - name: Install dependencies
-        run: ./workspace.sh "bun install"
+        run: cd ${{ matrix.dir }} && bun install
 
       - name: Run typecheck
-        run: ./workspace.sh "bun run typecheck"
+        run: cd ${{ matrix.dir }} && bun run typecheck
