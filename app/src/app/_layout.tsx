@@ -39,7 +39,7 @@ export default function Layout() {
 				// headerShown: showTabOnPage.includes(options.route.name),
 				headerShown: true,
 				headerStyle: {
-					backgroundColor: "black"
+					backgroundColor: "black",
 				},
 				headerTintColor: "#fffc01",
 				tabBarStyle: {
@@ -56,10 +56,10 @@ export default function Layout() {
 					options={{
 						tabBarLabel: "",
 						tabBarIconStyle: {
-							backgroundColor: "#fffc01"
+							backgroundColor: "#fffc01",
 						},
 						tabBarLabelStyle: {
-							fontSize: 1
+							fontSize: 1,
 						},
 						tabBarActiveTintColor: "#fffc01",
 						tabBarInactiveTintColor: "white",
