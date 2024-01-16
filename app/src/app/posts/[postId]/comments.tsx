@@ -1,6 +1,6 @@
 import { Feather } from "@expo/vector-icons";
 import { Button } from "@rneui/base";
-import { ScrollView, View, TextInput } from "react-native";
+import { ScrollView, TextInput, View } from "react-native";
 import Comment from "~/components/post/Comment";
 import Topbar from "~/components/post/Topbar";
 
