@@ -8,7 +8,7 @@ interface CommentOptionsProps {
 }
 export default function Comment(props: CommentOptionsProps) {
 	return (
-		<View className="flex flex-row px-4 py-3 border-y-[1px] border-gray-400">
+		<View className="flex flex-row px-4 py-3 border-y-[0.25px] border-gray-400">
 			<Image
 				className="rounded-full"
 				style={{
