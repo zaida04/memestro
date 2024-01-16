@@ -11,4 +11,4 @@ const sql_connection = postgres("postgresql://postgres:password@localhost:5432/p
 const drizzle_client = drizzle(sql_connection);
 
 // this allows us to use our created drizzle util and our raw db connection in other files
-export { drizzle_client, sql_connection };
+export { drizzle_client, sql_connection, drizzle_client as db };

@@ -15,8 +15,8 @@ interface PostOptions {
 export default function Post(props: PostOptions) {
 	return (
 		<Link href="/posts/blah/" className="w-full active:bg-gray-200">
-			<View className="w-full flex flex-row justify-between border border-gray-300 p-2">
-				<View className="flex flex-row gap-2">
+			<View className="w-full flex flex-row justify-between border border-gray-300 py-4 px-3">
+				<View className="flex flex-row gap-4">
 					<Image
 						style={{
 							width: 125,
@@ -31,7 +31,7 @@ export default function Post(props: PostOptions) {
 						<Text className="text-gray-600 text-xs">{props.description}</Text>
 					</View>
 				</View>
-				<View className="flex flex-col gap">
+				<View className="flex flex-col gap border-l border-gray-400 pl-4">
 					<UpvoteCount extendClassName="test gap-1" upvotes={props.upvotes} />
 					<CommentCount comments={props.comments} />
 				</View>

@@ -38,6 +38,10 @@ export default function Layout() {
 			screenOptions={(options) => ({
 				// headerShown: showTabOnPage.includes(options.route.name),
 				headerShown: true,
+				headerStyle: {
+					backgroundColor: "black"
+				},
+				headerTintColor: "#fffc01",
 				tabBarStyle: {
 					display: showTabOnPage.includes(options.route.name) ? "flex" : "none",
 				},
@@ -50,7 +54,19 @@ export default function Layout() {
 					key={tab.name}
 					name={tab.name}
 					options={{
-						tabBarLabel: tab.label,
+						tabBarLabel: "",
+						tabBarIconStyle: {
+							backgroundColor: "#fffc01"
+						},
+						tabBarLabelStyle: {
+							fontSize: 1
+						},
+						tabBarActiveTintColor: "#fffc01",
+						tabBarInactiveTintColor: "white",
+						tabBarStyle: {
+							paddingTop: 5,
+							backgroundColor: "black",
+						},
 						tabBarIcon(props) {
 							return <Feather name={tab.icon as any} {...props} />;
 						},
